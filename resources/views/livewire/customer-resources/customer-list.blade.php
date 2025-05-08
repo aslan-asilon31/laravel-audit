@@ -39,12 +39,13 @@
 
   <div class="">
 
-    <x-table :headers="$this->headers" class="" :rows="$this->rows" :sort-by="$sortBy" with-pagination show-empty-text>
+    <x-table :headers="$this->headers" class="table-sm border border-gray-400 dark:border-gray-500" :rows="$this->rows"
+      :sort-by="$sortBy" with-pagination show-empty-text>
 
       @scope('cell_action', $row)
         <x-dropdown>
           <x-menu-item title="Edit" icon="o-pencil-square" link="/customers/edit/{{ $row->id }}" />
-          <x-menu-item title="Show" icon="o-eye" link="/customers/show/{{ $row->id }}/readonly" />
+          <x-menu-item title="Show" icon="o-eye" link="/customers/show/{{ $row->id }}" />
         </x-dropdown>
       @endscope
 

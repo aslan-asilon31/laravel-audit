@@ -15,6 +15,3 @@ Route::get('/sales-orders', \App\Livewire\SalesOrderResources\SalesOrderList::cl
 Route::get('/sales-orders/create', \App\Livewire\SalesOrderResources\SalesOrderCreate::class)->name('sales-orders.create');
 Route::get('/sales-orders/edit/{id}', \App\Livewire\SalesOrderResources\SalesOrderEdit::class)->name('sales-orders.edit');
 Route::get('/sales-orders/show/{id}', \App\Livewire\SalesOrderResources\SalesOrderShow::class)->name('sales-orders.show');
-
-
-// });

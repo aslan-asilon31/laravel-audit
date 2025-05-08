@@ -7,15 +7,14 @@ use Livewire\Component;
 use App\Models\Page;
 use App\Models\Customer;
 use \Livewire\WithFileUploads;
-use \App\Helpers\ImageUpload\Traits\WithImageUpload;
 use \Mary\Traits\Toast;
 use Livewire\WithPagination;
 
 class CustomerEdit extends Component
 {
 
+  use \App\Helpers\FormHook\Traits\WithCustomer;
   use Toast;
-  use WithPagination;
 
   public function render()
   {
@@ -63,36 +62,13 @@ class CustomerEdit extends Component
 
     $masterData = $this->masterModel::findOrFail($this->id);
 
-    \Illuminate\Support\Facades\DB::beginTransaction();
     try {
-
       $validatedForm['updated_by'] = 'admin';
-
-
       $masterData->update($validatedForm);
-
-      \Illuminate\Support\Facades\DB::commit();
-
+      $this->redirect('/customers', true);
       $this->success('Data has been updated');
     } catch (\Throwable $th) {
-      \Illuminate\Support\Facades\DB::rollBack();
       $this->error('Data failed to update');
-    }
-  }
-
-  public function delete()
-  {
-    $masterData = $this->masterModel::findOrFail($this->id);
-    \Illuminate\Support\Facades\DB::beginTransaction();
-    try {
-      $masterData->delete();
-      \Illuminate\Support\Facades\DB::commit();
-
-      $this->success('Data has been deleted');
-      $this->redirect('/customers', true);
-    } catch (\Throwable $th) {
-      \Illuminate\Support\Facades\DB::rollBack();
-      $this->error('Data failed to delete');
     }
   }
 }

@@ -15,10 +15,8 @@ class CustomerShow extends Component
       ->title($this->title);
   }
 
-  use \Livewire\WithFileUploads;
-  use \App\Helpers\ImageUpload\Traits\WithImageUpload;
+  use \App\Helpers\FormHook\Traits\WithCustomer;
   use \Mary\Traits\Toast;
-
 
   #[\Livewire\Attributes\Locked]
   private string $basePageName = 'customer';
@@ -42,10 +40,22 @@ class CustomerShow extends Component
   #[\Livewire\Attributes\Locked]
   protected $masterModel = \App\Models\Customer::class;
 
+  #[\Livewire\Attributes\Locked]
+  public string $readonly = '';
+
+  #[\Livewire\Attributes\Locked]
+  public bool $isReadonly = false;
+
+  #[\Livewire\Attributes\Locked]
+  public bool $isDisabled = false;
+
+
   public CustomerForm $masterForm;
 
   public function mount()
   {
+    $this->isReadonly = true;
+    $this->isDisabled = true;
     $masterData = $this->masterModel::findOrFail($this->id);
     $this->masterForm->fill($masterData);
   }

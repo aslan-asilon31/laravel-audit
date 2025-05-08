@@ -15,8 +15,6 @@ class CustomerCreate extends Component
       ->title($this->title);
   }
 
-  use \Livewire\WithFileUploads;
-
   use \Mary\Traits\Toast;
 
   #[\Livewire\Attributes\Locked]
@@ -67,19 +65,15 @@ class CustomerCreate extends Component
       $this->masterForm->attributes()
     )['masterForm'];
 
-    \Illuminate\Support\Facades\DB::beginTransaction();
     try {
 
       $validatedForm['created_by'] = 'admin';
       $validatedForm['updated_by'] = 'admin';
 
       $this->masterModel::create($validatedForm);
-      \Illuminate\Support\Facades\DB::commit();
-
-      $this->create();
+      $this->redirect('/customers', true);
       $this->success('Data has been stored');
     } catch (\Throwable $th) {
-      \Illuminate\Support\Facades\DB::rollBack();
       \Log::error('Data failed to store: ' . $th->getMessage());
       $this->error('Data failed to store');
     }

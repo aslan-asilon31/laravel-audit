@@ -8,7 +8,6 @@ use App\Models\Customer;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
-use App\Livewire\Pages\Admin\Contents\CustomerResources\Forms\CustomerForm;
 use Mary\Traits\Toast;
 
 class CustomerList extends Component
@@ -20,6 +19,7 @@ class CustomerList extends Component
   #[\Livewire\Attributes\Locked]
   public $id;
 
+  use \App\Helpers\FormHook\Traits\WithCustomer;
   use Toast;
   use WithPagination;
 
@@ -141,31 +141,8 @@ class CustomerList extends Component
     $this->filterDrawer = false;
   }
 
-  public function clear(): void
-  {
-    $this->reset('filters');
-    $this->reset('filterForm');
-    $this->success('filter cleared');
-  }
-
-  public function delete()
-  {
-    $masterData = Customer::findOrFail($this->id);
-
-    \Illuminate\Support\Facades\DB::beginTransaction();
-    try {
 
 
-      $masterData->delete();
-      \Illuminate\Support\Facades\DB::commit();
-
-      $this->success('Data has been deleted');
-      $this->redirect($this->url, true);
-    } catch (\Throwable $th) {
-      \Illuminate\Support\Facades\DB::rollBack();
-      $this->error('Data failed to delete');
-    }
-  }
 
   public function render()
   {

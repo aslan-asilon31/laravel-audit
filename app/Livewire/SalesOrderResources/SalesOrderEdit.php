@@ -26,7 +26,7 @@ class SalesOrderEdit extends Component
 
   public function render()
   {
-    return view('livewire.sales-order-resources.sales-order-crud')
+    return view('livewire.sales-order-resources.sales-order-edit')
       ->title($this->title);
   }
 
@@ -49,7 +49,6 @@ class SalesOrderEdit extends Component
         'products.name as product_name',
       ])->where('sales_order_detail.sales_order_id', $this->id)->get()->toArray();
     $this->details = $details;
-
     $this->searchEmployee();
     $this->searchProduct();
     $this->searchCustomer();
@@ -80,7 +79,7 @@ class SalesOrderEdit extends Component
 
     $this->detailModel::where('sales_order_id', $this->id)->delete();
     $this->detailModel::insert($details);
-
+    $this->redirect('/sales-orders', true);
     $this->success('Sales Order Updated.');
   }
 }

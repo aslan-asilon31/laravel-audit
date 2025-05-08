@@ -41,8 +41,6 @@ trait WithSalesOrder
     public array $headers = [];
 
 
-
-
     public Collection $customersSearchable;
     public Collection $employeesSearchable;
     public Collection $productsSearchable;
@@ -123,7 +121,7 @@ trait WithSalesOrder
         try {
             $headerModel->delete();
             $this->success('Data has been deleted');
-            $this->redirect('/sales-orders');
+            $this->redirect('/sales-orders', true);
         } catch (\Throwable $th) {
             $this->error('Data failed to delete');
         }

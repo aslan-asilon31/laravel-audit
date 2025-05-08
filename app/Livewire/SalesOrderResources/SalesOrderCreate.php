@@ -21,7 +21,7 @@ class SalesOrderCreate extends Component
 
   public function render()
   {
-    return view('livewire.sales-order-resources.sales-order-crud')
+    return view('livewire.sales-order-resources.sales-order-create')
       ->title($this->title);
   }
 
@@ -70,6 +70,7 @@ class SalesOrderCreate extends Component
     $header = SalesOrderDetail::insert($details);
     $this->headerForm->reset();
     $this->reset('details');
+    $this->redirect('/sales-orders', true);
     $this->success('Sales Order Created.');
   }
 }

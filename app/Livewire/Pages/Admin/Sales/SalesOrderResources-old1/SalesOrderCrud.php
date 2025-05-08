@@ -15,7 +15,6 @@ class SalesOrderCrud extends Component
   }
 
   use \Livewire\WithFileUploads;
-  use \App\Helpers\ImageUpload\Traits\WithImageUpload;
   use \Mary\Traits\Toast;
   use \App\Helpers\FormHook\Traits\WithSalesOrder;
 

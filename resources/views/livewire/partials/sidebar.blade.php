@@ -22,7 +22,6 @@
 
       <x-menu-item title="Dashboard" icon="o-chart-bar-square" link="/" :class="request()->is('dashboard') ? 'active' : ''" />
       <x-menu-separator title="Management" icon="o-sparkles" />
-      <x-menu-item title="Product" icon="o-archive-box" link="/products" :class="request()->is('products') ? 'active' : ''" />
       <x-menu-item title="Customers" icon="o-users" link="/customers/" :class="request()->is('customers/') ? 'active' : ''" />
       <x-menu-item title="Sales Order" icon="o-banknotes" link="/sales-orders" :class="request()->is('orders') ? 'active' : ''" />
 

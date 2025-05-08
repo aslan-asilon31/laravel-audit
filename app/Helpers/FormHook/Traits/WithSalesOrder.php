@@ -12,8 +12,7 @@ use App\Livewire\Pages\Admin\Sales\SalesOrderResources\Forms\SalesOrderDetailFor
 trait WithSalesOrder
 {
 
-    public SalesOrderForm $headerForm;
-    public SalesOrderDetailForm $detailForm;
+
 
     public int $detailIndex;
 

@@ -34,7 +34,7 @@
   </x-nav>
 
   {{-- MAIN --}}
-  <x-main class="">
+  <x-main>
     {{-- SIDEBAR --}}
     <livewire:partials.sidebar />
 

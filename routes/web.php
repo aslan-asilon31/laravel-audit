@@ -5,6 +5,49 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Welcome::class);
 
+// Route::get('/invoice', function () {
+//     return view('components/invoice');
+// });
+
+
+Route::get('/invoice', function () {
+    $sales_order = [
+        'sales_order_details' => [
+            [
+                'qty' => 2,
+                'selling_price' => 15000,
+                'product' => [
+                    'name' => 'Produk A'
+                ]
+            ],
+            [
+                'qty' => 1,
+                'selling_price' => 25000,
+                'product' => [
+                    'name' => 'Produk B'
+                ]
+            ],
+            [
+                'qty' => 3,
+                'selling_price' => 10000,
+                'product' => [
+                    'name' => 'Produk C'
+                ]
+            ],
+        ]
+    ];
+
+    $discount = 5000;
+    $brutoTotal = 0;
+
+    foreach ($sales_order['sales_order_details'] as $item) {
+        $brutoTotal += $item['qty'] * $item['selling_price'];
+    }
+
+    $grandTotal = $brutoTotal - $discount;
+
+    return view('components/invoice', compact('sales_order', 'discount', 'brutoTotal', 'grandTotal'));
+});
 
 Route::get('/customers', \App\Livewire\CustomerResources\CustomerList::class)->name('customer.list');
 Route::get('/customers/create', \App\Livewire\CustomerResources\CustomerCreate::class)->name('customer.create');

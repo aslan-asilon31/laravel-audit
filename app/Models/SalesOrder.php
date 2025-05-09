@@ -30,4 +30,14 @@ class SalesOrder extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function sales_order_details()
+    {
+        return $this->hasMany(SalesOrderDetail::class);
+    }
 }

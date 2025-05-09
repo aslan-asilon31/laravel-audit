@@ -61,6 +61,7 @@
           <x-menu-item title="Edit" icon="o-pencil-square" link="/sales-orders/edit/{{ $row->id }}" />
 
           <x-menu-item title="Show" icon="o-eye" link="/sales-orders/show/{{ $row->id }}" />
+          <x-menu-item title="PDF" icon="o-document" wire:click="printPdf('{{ $row->id }}')" />
         </x-dropdown>
       @endscope
       @scope('cell_is_activated', $sales_order)

@@ -4,7 +4,7 @@
 
     <div class="grid grid-cols-2 mb-4">
       <div>
-        <x-button label="List" link="/sales-orders" class="btn-ghost btn-outline" />
+        <x-button label="List" link="/customers" class="btn-ghost btn-outline" />
         @if ($id)
           <x-button label="Delete" wire:click="delete" wire:confirm="are you sure to delete this data ?"
             class="btn-error btn-outline" />

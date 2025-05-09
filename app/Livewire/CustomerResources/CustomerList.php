@@ -9,6 +9,9 @@ use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Mary\Traits\Toast;
+use App\Exports\CustomersExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerList extends Component
 {
@@ -139,6 +142,12 @@ class CustomerList extends Component
     $this->filters = collect($validatedFilters)->reject(fn($value) => $value === '')->toArray();
     $this->success('Filter Result');
     $this->filterDrawer = false;
+  }
+
+
+  public function exportExcel()
+  {
+    return Excel::download(new CustomersExport, 'customers.xlsx');
   }
 
 

@@ -10,6 +10,7 @@ use Livewire\WithPagination;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Livewire\Pages\Admin\Contents\CustomerResources\Forms\CustomerForm;
 use Mary\Traits\Toast;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalesOrderList extends Component
 {
@@ -22,6 +23,8 @@ class SalesOrderList extends Component
 
   use Toast;
   use WithPagination;
+
+  public $sales_order;
 
   #[Url(except: '')]
   public ?string $search = '';
@@ -183,6 +186,37 @@ class SalesOrderList extends Component
       \Illuminate\Support\Facades\DB::rollBack();
       $this->error('Data failed to delete');
     }
+  }
+
+  public function printPdf($id)
+  {
+    $this->sales_order = SalesOrder::with([
+      'employee' => function ($query) {
+        $query->select('id', 'name');
+      },
+      'customer' => function ($query) {
+        $query->select('id', 'first_name', 'last_name');
+      },
+      'sales_order_details' => function ($query) {
+        $query->with('product');
+      }
+    ])
+      ->findOrFail($id)
+      ->toArray();
+
+
+    $pdf = Pdf::loadView('components.invoice', ['sales_order' => $this->sales_order])
+      ->setPaper([0, 0, 686.07, 391.23], 'portrait')
+      ->setOptions([
+        'margin_top'    => 0,
+        'margin_right'  => 0,
+        'margin_bottom' => 0,
+        'margin_left'   => 0,
+      ]);
+    // $pdf = Pdf::loadView('components.invoice', ['sales_order' => $this->sales_order])->setPaper([0, 0, 9.53 * 72, 5.43 * 72]);
+    return response()->streamDownload(function () use ($pdf) {
+      echo $pdf->stream();
+    }, 'sales_orders.pdf');
   }
 
   public function render()

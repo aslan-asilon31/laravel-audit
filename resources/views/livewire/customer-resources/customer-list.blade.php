@@ -1,6 +1,8 @@
 <div>
   <x-list-menu :title="$title" :url="$url" shadow />
 
+
+  <x-button class="" wire:click="exportExcel">Export</x-button>
   <x-drawer wire:model="filterDrawer" class="w-11/12 lg:w-1/3" title="Filter" right separator with-close-button>
 
     <x-form wire:submit.prevent="filter">

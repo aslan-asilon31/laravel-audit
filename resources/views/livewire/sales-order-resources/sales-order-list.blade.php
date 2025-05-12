@@ -47,6 +47,9 @@
   </x-drawer>
 
   <x-list-menu :title="$title" :url="$url" shadow separator class="" />
+  <x-button label="Export" wire:click="export"/>
+  <x-button label="Export By Filter" wire:click="exportByFilter"/>
+
 
   <div class="my-2">
     <x-input placeholder="Search..." wire:model.live.debounce.300ms="search" icon="o-magnifying-glass" clearable />

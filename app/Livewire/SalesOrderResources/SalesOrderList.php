@@ -11,6 +11,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Livewire\Pages\Admin\Contents\CustomerResources\Forms\CustomerForm;
 use Mary\Traits\Toast;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\SalesOrderExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SalesOrderList extends Component
 {
@@ -25,6 +27,7 @@ class SalesOrderList extends Component
   use WithPagination;
 
   public $sales_order;
+  public $filteredData;
 
   #[Url(except: '')]
   public ?string $search = '';
@@ -84,6 +87,9 @@ class SalesOrderList extends Component
         'customers.last_name as last_name',
       );
 
+    $this->filteredData = $query->get();
+
+
     $query->when($this->search, fn($q) => $q->where('customers.first_name', 'like', "%{$this->search}%"))
       ->when(($this->filters['id'] ?? ''), fn($q) => $q->where('sales_orders.id', 'like', "%{$this->filters['id']}%"))
       ->when(($this->filters['first_name'] ?? ''), fn($q) => $q->where('customers.first_name', 'like', "%{$this->filters['first_name']}%"))
@@ -109,6 +115,7 @@ class SalesOrderList extends Component
         $q->whereDate('sales_orders.updated_at', $dateOnly);
       });
 
+
     $paginator = $query
       ->orderBy(...array_values($this->sortBy))
       ->paginate(20);
@@ -120,8 +127,12 @@ class SalesOrderList extends Component
       return $item;
     });
 
+
     return $paginator;
   }
+
+
+
 
   public function filter()
   {
@@ -164,9 +175,35 @@ class SalesOrderList extends Component
 
   public function clear(): void
   {
+    $query = SalesOrder::query()
+    ->join('customers', 'sales_orders.customer_id', 'customers.id')
+    ->select(
+      'sales_orders.*',
+      'customers.id as customer_id',
+      'customers.first_name as first_name',
+      'customers.last_name as last_name',
+    )->get();
+
+    $this->filteredData = $query;
+
     $this->reset('filters');
     $this->reset('filterForm');
     $this->success('filter cleared');
+  }
+
+  
+  public function exportByFilter()
+  {
+    
+
+      $data = $this->filteredData;
+
+      return Excel::download(new SalesOrderExport($data), 'sales-orders-filtered.xlsx');
+  }
+
+  public function export() 
+  {
+      return Excel::download(new SalesOrderExport, 'sales-orders.xlsx');
   }
 
   public function delete()

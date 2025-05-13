@@ -41,8 +41,8 @@
 
       @scope('cell_action', $row)
         <x-dropdown class="btn-xs">
-          <x-menu-item class="" title="Edit" icon="o-pencil-square" link="/products/edit/{{ $row->id }}" />
-          <x-menu-item class="" title="Show" icon="o-eye" link="/products/show/{{ $row->id }}/readonly" />
+          <x-menu-item class="" title="Edit" icon="o-pencil-square" link="products/edit/{{ $row->id }}" />
+          <x-menu-item class="" title="Show" icon="o-eye" link="products/show/{{ $row->id }}/readonly" />
         </x-dropdown>
       @endscope
 

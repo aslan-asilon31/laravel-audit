@@ -13,6 +13,7 @@ use Mary\Traits\Toast;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\SalesOrderExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class SalesOrderList extends Component
 {
@@ -175,35 +176,34 @@ class SalesOrderList extends Component
 
   public function clear(): void
   {
-    $query = SalesOrder::query()
-    ->join('customers', 'sales_orders.customer_id', 'customers.id')
-    ->select(
-      'sales_orders.*',
-      'customers.id as customer_id',
-      'customers.first_name as first_name',
-      'customers.last_name as last_name',
-    )->get();
-
-    $this->filteredData = $query;
 
     $this->reset('filters');
     $this->reset('filterForm');
+
+    $this->filteredData = [];
+
+    $query = SalesOrder::query()
+      ->join('customers', 'sales_orders.customer_id', 'customers.id')
+      ->select(
+        'sales_orders.*',
+        'customers.id as customer_id',
+        'customers.first_name as first_name',
+        'customers.last_name as last_name',
+      )->get();
+
+    $this->filteredData = $query;
+
     $this->success('filter cleared');
   }
 
-  
-  public function exportByFilter()
+
+  public function export()
   {
-    
+    $data = $this->filteredData;
 
-      $data = $this->filteredData;
+    $timestamp = Carbon::now()->format('Ymd-His');
 
-      return Excel::download(new SalesOrderExport($data), 'sales-orders-filtered.xlsx');
-  }
-
-  public function export() 
-  {
-      return Excel::download(new SalesOrderExport, 'sales-orders.xlsx');
+    return Excel::download(new SalesOrderExport($data), 'sales-order-' . $timestamp . '.xlsx');
   }
 
   public function delete()

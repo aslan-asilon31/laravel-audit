@@ -47,8 +47,7 @@
   </x-drawer>
 
   <x-list-menu :title="$title" :url="$url" shadow separator class="" />
-  <x-button label="Export" wire:click="export"/>
-  <x-button label="Export By Filter" wire:click="exportByFilter"/>
+  <x-button label="Export" wire:click="export" />
 
 
   <div class="my-2">

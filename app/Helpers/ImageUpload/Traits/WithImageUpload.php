@@ -6,7 +6,6 @@ trait WithImageUpload
 {
   protected function saveImage($folderName = 'files/images', $imageName = null, $newImageUrl = null, $oldImageUrl = null, $disk = 'public')
   {
-
     if ($newImageUrl instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
       $ext = $newImageUrl->getClientOriginalExtension();
       $imageName = $imageName . '.' . $ext;

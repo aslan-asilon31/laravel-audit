@@ -96,10 +96,9 @@ class ProductCrud extends Component
     \Illuminate\Support\Facades\DB::beginTransaction();
     try {
 
-      $validatedForm['created_by'] = auth()->user()->username ?? null;
-      $validatedForm['updated_by'] = auth()->user()->username ?? null;
-      $validatedForm['product_brand_id'] = $this->selectedBrandId;
-
+      $validatedForm['created_by'] = 'admin';
+      $validatedForm['updated_by'] = 'admin';
+      $validatedForm['is_activated'] = 1;
       // image_url
       $folderName = $this->baseFolderName;
       $now = now()->format('Ymd_His_u');
@@ -115,8 +114,7 @@ class ProductCrud extends Component
 
       $this->masterModel::create($validatedForm);
       \Illuminate\Support\Facades\DB::commit();
-
-      $this->create();
+      $this->redirect('/products', true);
       $this->success('Data has been stored');
     } catch (\Throwable $th) {
       \Illuminate\Support\Facades\DB::rollBack();
@@ -151,7 +149,6 @@ class ProductCrud extends Component
     )['masterForm'];
     $masterData = $this->masterModel::findOrFail($this->id);
 
-    \Illuminate\Support\Facades\DB::beginTransaction();
     try {
 
       $validatedForm['updated_by'] = auth()->user()->username ?? null;
@@ -170,8 +167,8 @@ class ProductCrud extends Component
       // ./image_url
 
       $masterData->update($validatedForm);
+      $this->redirect('/products', true);
 
-      \Illuminate\Support\Facades\DB::commit();
 
       $this->success('Data has been updated');
     } catch (\Throwable $e) {
@@ -193,9 +190,9 @@ class ProductCrud extends Component
 
       $masterData->delete();
       \Illuminate\Support\Facades\DB::commit();
+      $this->redirect('/products', true);
 
       $this->success('Data has been deleted');
-      $this->redirect($this->url, true);
     } catch (\Throwable $th) {
       \Illuminate\Support\Facades\DB::rollBack();
       $this->error('Data failed to delete');

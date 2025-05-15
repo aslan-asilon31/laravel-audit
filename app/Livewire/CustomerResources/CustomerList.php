@@ -12,6 +12,7 @@ use Mary\Traits\Toast;
 use App\Exports\CustomersExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class CustomerList extends Component
 {
@@ -145,13 +146,11 @@ class CustomerList extends Component
   }
 
 
-  public function exportExcel()
+  public function export()
   {
-    return Excel::download(new CustomersExport, 'customers.xlsx');
+    $timestamp = Carbon::now()->format('Ymd-His');
+    return Excel::download(new CustomersExport, 'customers-' . $timestamp . '.xlsx');
   }
-
-
-
 
   public function render()
   {

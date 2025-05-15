@@ -8,44 +8,55 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use App\Models\SalesOrder;
+
 
 class SalesOrderExport implements FromCollection, WithMapping, WithColumnFormatting, WithHeadings
 {
-    protected $data;
-
-    public function __construct(Collection $data)
+    public function collection()
     {
-        $this->data = $data;
-    }
-
-    public function collection(): Collection
-    {
-        return $this->data;
+        return SalesOrder::all();
     }
 
     public function map($row): array
     {
         return [
-            $row->invoice_number,                      // Kolom A
-            \PhpOffice\PhpSpreadsheet\Shared\Date::PHPToExcel($row->order_date), // Kolom B
-            $row->total_amount,                        // Kolom C
+            $row->id,                                 // Kolom: ID
+            $row->first_name,                         // Kolom: First Name
+            $row->last_name,                          // Kolom: Last Name
+            Date::PHPToExcel($row->date),             // Kolom: Date
+            $row->number,                             // Kolom: Number
+            $row->status,                             // Kolom: Status
+            $row->updated_by,                         // Kolom: Updated By
+            Date::PHPToExcel($row->created_at),       // Kolom: Created At
+            Date::PHPToExcel($row->updated_at),       // Kolom: Updated At
+            $row->is_activated ? 'Yes' : 'No',        // Kolom: Is Activated
         ];
     }
 
     public function columnFormats(): array
     {
         return [
-            'B' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'C' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'D' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Date
+            'H' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Created At
+            'I' => NumberFormat::FORMAT_DATE_DDMMYYYY, // Updated At
         ];
     }
 
     public function headings(): array
     {
         return [
-            'id',
-            'Employee ID',
-            'Customer ID',
+            'ID',
+            'First Name',
+            'Last Name',
+            'Date',
+            'Number',
+            'Status',
+            'Updated By',
+            'Created At',
+            'Updated At',
+            'Is Activated',
         ];
     }
 }

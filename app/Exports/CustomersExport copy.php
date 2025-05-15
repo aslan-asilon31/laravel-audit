@@ -44,8 +44,8 @@ class CustomersExport implements FromCollection, WithMapping, WithColumnFormatti
     {
 
         return [
-            'H' => NumberFormat::FORMAT_DATE_DDMMYYYY,
-            'I' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            'H' => NumberFormat::FORMAT_DATE_DMYSLASH,
+            'I' => NumberFormat::FORMAT_DATE_DMYSLASH,
         ];
     }
 

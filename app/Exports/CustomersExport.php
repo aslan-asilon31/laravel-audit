@@ -10,14 +10,25 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use PhpOffice\PhpSpreadsheet\Shared\Date;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Concerns\WithColumnWidths;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use Maatwebsite\Excel\Concerns\WithStyles;
 
-class CustomersExport implements FromCollection, WithMapping, WithColumnFormatting, WithHeadings
+
+class CustomersExport implements FromCollection, WithStyles, WithColumnWidths, WithMapping, WithColumnFormatting, WithHeadings
 {
+
+    private $filter;
+
+    public function __construct($filter)
+    {
+        $this->filter = $filter;
+    }
 
     public function collection()
     {
 
-        return Customer::all();
+        return $this->filter;
     }
 
     public function map($row): array
@@ -63,6 +74,32 @@ class CustomersExport implements FromCollection, WithMapping, WithColumnFormatti
             'Created At',
             'Updated At',
             'Is Activated',
+        ];
+    }
+
+    public function columnWidths(): array
+    {
+        return [
+            'A' => 40,
+            'B' => 15,
+            'C' => 15,
+            'D' => 15,
+            'E' => 15,
+            'F' => 15,
+            'G' => 15,
+            'H' => 15,
+            'I' => 15,
+            'J' => 15,
+        ];
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            1    => [
+                'font' => ['bold' => true],
+                'font' => ['size' => 12],
+            ],
         ];
     }
 }

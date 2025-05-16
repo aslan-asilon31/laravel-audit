@@ -28,7 +28,7 @@ class SalesOrderList extends Component
   use WithPagination;
 
   public $sales_order;
-  public $filteredData;
+  public $exportFilter;
 
   #[Url(except: '')]
   public ?string $search = '';
@@ -88,7 +88,6 @@ class SalesOrderList extends Component
         'customers.last_name as last_name',
       );
 
-    $this->filteredData = $query->get();
 
 
     $query->when($this->search, fn($q) => $q->where('customers.first_name', 'like', "%{$this->search}%"))
@@ -116,7 +115,7 @@ class SalesOrderList extends Component
         $q->whereDate('sales_orders.updated_at', $dateOnly);
       });
 
-
+    $this->exportFilter = $query->get();
     $paginator = $query
       ->orderBy(...array_values($this->sortBy))
       ->paginate(20);
@@ -180,7 +179,6 @@ class SalesOrderList extends Component
     $this->reset('filters');
     $this->reset('filterForm');
 
-    $this->filteredData = [];
 
     $query = SalesOrder::query()
       ->join('customers', 'sales_orders.customer_id', 'customers.id')
@@ -191,7 +189,7 @@ class SalesOrderList extends Component
         'customers.last_name as last_name',
       )->get();
 
-    $this->filteredData = $query;
+    $this->exportFilter = $query;
 
     $this->success('filter cleared');
   }
@@ -199,11 +197,9 @@ class SalesOrderList extends Component
 
   public function export()
   {
-    $data = $this->filteredData;
-
     $timestamp = Carbon::now()->format('Ymd-His');
 
-    return Excel::download(new SalesOrderExport($data), 'sales-order-' . $timestamp . '.xlsx');
+    return Excel::download(new SalesOrderExport($this->exportFilter), 'sales-order-' . $timestamp . '.xlsx');
   }
 
   public function delete()

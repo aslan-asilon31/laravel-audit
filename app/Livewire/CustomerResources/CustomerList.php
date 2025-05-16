@@ -31,6 +31,7 @@ class CustomerList extends Component
   public ?string $search = '';
 
   public bool $filterDrawer;
+  public $exportFilter;
 
   public array $sortBy = ['column' => 'first_name', 'direction' => 'desc'];
 
@@ -96,6 +97,8 @@ class CustomerList extends Component
         $q->whereDate('updated_at', $dateOnly);
       });
 
+    $this->exportFilter = $query->get();
+
     $paginator = $query
       ->orderBy(...array_values($this->sortBy))
       ->paginate(20);
@@ -149,8 +152,10 @@ class CustomerList extends Component
   public function export()
   {
     $timestamp = Carbon::now()->format('Ymd-His');
-    return Excel::download(new CustomersExport, 'customers-' . $timestamp . '.xlsx');
+    return Excel::download(new CustomersExport($this->exportFilter), 'customers-' . $timestamp . '.xlsx');
   }
+
+
 
   public function render()
   {

@@ -88,8 +88,6 @@ class SalesOrderList extends Component
         'customers.last_name as last_name',
       );
 
-
-
     $query->when($this->search, fn($q) => $q->where('customers.first_name', 'like', "%{$this->search}%"))
       ->when(($this->filters['id'] ?? ''), fn($q) => $q->where('sales_orders.id', 'like', "%{$this->filters['id']}%"))
       ->when(($this->filters['first_name'] ?? ''), fn($q) => $q->where('customers.first_name', 'like', "%{$this->filters['first_name']}%"))

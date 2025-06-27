@@ -11,13 +11,15 @@
     "require": {
         "php": "^8.3",
         "barryvdh/laravel-dompdf": "^3.1",
+        "flightsadmin/livewire-crud": "^2.1",
         "laravel/framework": "^12.0",
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6",
         "livewire/volt": "^1.7",
         "maatwebsite/excel": "^3.1",
         "power-components/livewire-powergrid": "^6.3",
-        "robsontenorio/mary": "^2.2"
+        "robsontenorio/mary": "^2.2",
+        "spatie/laravel-permission": "^6.20"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

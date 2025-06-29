@@ -24,7 +24,7 @@
             Typing pic ...
           </div>
         </div>
-        
+
         <div class="mb-3">
           <x-input label="description" wire:model.blur="masterForm.description" id="masterForm.description" description="masterForm.description"
             placeholder="description" :readonly="$isReadonly" />
@@ -66,6 +66,7 @@
           ]" />
         </div>
 
+        
 
         
 

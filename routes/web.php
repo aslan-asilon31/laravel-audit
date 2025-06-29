@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 
 
 
+Route::get('/tickets', \App\Livewire\TicketResources\TicketList::class)->name('ticket.list');
+Route::get('/tickets/create', \App\Livewire\TicketResources\TicketCrud::class)->name('tickets.create');
+
 // Route::get('/products', \App\Livewire\ProductResources\ProductList::class)->name('products.list');
 // Route::get('/products/create', \App\Livewire\ProductResources\ProductCrud::class)->name('products.create');
 // Route::get('/products/edit/{id}', \App\Livewire\ProductResources\ProductCrud::class)->name('products.edit');

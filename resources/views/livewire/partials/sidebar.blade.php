@@ -1,8 +1,8 @@
-<div>
-  <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit ">
+<div class="">
+  <x-slot:sidebar drawer="main-drawer" collapsible class="bg-base-100 lg:bg-inherit">
 
     {{-- BRAND --}}
-    <x-app-brand class="px-5 pt-4" />
+    <x-app-brand class="px-5 pt-4 " />
 
 
 
@@ -22,9 +22,7 @@
 
       <x-menu-item title="Dashboard" icon="o-chart-bar-square" link="/" :class="request()->is('dashboard') ? 'active' : ''" />
       <x-menu-separator title="Management" icon="o-sparkles" />
-      <x-menu-item title="Customers" icon="o-users" link="/customers/" :class="request()->is('customers/') ? 'active' : ''" />
-      <x-menu-item title="Products" icon="o-archive-box" link="/products/" :class="request()->is('products/') ? 'active' : ''" />
-      <x-menu-item title="Sales Order" icon="o-banknotes" link="/sales-orders" :class="request()->is('orders') ? 'active' : ''" />
+      <x-menu-item title="tickets" icon="o-archive-box" link="/tickets/" :class="request()->is('products/') ? 'active' : ''" />
 
       <x-menu-sub title="Settings" icon="o-cog-6-tooth">
         <x-menu-item title="Setting" icon-right="o-arrow-long-right" link="####" />

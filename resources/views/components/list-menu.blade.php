@@ -1,5 +1,20 @@
 <x-header title="{{ $title }}" subtitle="" separator>
+
+
+
   <x-slot:actions>
+
+    <x-dropdown no-x-anchor>
+      <x-slot:trigger spinner>
+        <x-button icon="o-bell" class="btn-circle" badge="{{ $notificationCount ?? 8 }}" />
+      </x-slot:trigger>
+
+      <x-menu-item title="Archive" icon="o-archive-box" />
+      <x-menu-item title="Remove" icon="o-trash" />
+      <x-menu-item title="Restore" icon="o-arrow-path" />
+    </x-dropdown>
+
+
     @if (empty($id))
       @if ('/' . request()->path() == $url . '/create')
       @else

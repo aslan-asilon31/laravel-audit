@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d97215e8f5ee4cee79584b1cbef69de8",
+    "content-hash": "c208d6d21a29f02315ec410734ab087f",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -4915,16 +4915,16 @@
         },
         {
             "name": "robsontenorio/mary",
-            "version": "2.4.0",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsontenorio/mary.git",
-                "reference": "7c92f2a7b95c86813680032008f2e9950368c7b7"
+                "reference": "6161751ac7dc3fa9100e12d0a7f5e1a2a94539be"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/7c92f2a7b95c86813680032008f2e9950368c7b7",
-                "reference": "7c92f2a7b95c86813680032008f2e9950368c7b7",
+                "url": "https://api.github.com/repos/robsontenorio/mary/zipball/6161751ac7dc3fa9100e12d0a7f5e1a2a94539be",
+                "reference": "6161751ac7dc3fa9100e12d0a7f5e1a2a94539be",
                 "shasum": ""
             },
             "require": {
@@ -4990,7 +4990,7 @@
             ],
             "support": {
                 "issues": "https://github.com/robsontenorio/mary/issues",
-                "source": "https://github.com/robsontenorio/mary/tree/2.4.0"
+                "source": "https://github.com/robsontenorio/mary/tree/2.4.3"
             },
             "funding": [
                 {
@@ -4998,7 +4998,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-05-08T20:32:45+00:00"
+            "time": "2025-06-24T15:34:03+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",

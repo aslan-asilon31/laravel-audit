@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Spatie\Permission\Models\Role;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-  use HasFactory, Notifiable, HasUuids;
+  use HasFactory, Notifiable, HasUuids, HasRoles;
 
   public function newUniqueId(): string
   {
@@ -50,5 +53,16 @@ class User extends Authenticatable
       'email_verified_at' => 'datetime',
       'password' => 'hashed',
     ];
+  }
+
+
+  public function ticket()
+  {
+    return $this->belongsTo(Ticket::class);
+  }
+
+  public function roles()
+  {
+    return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
   }
 }

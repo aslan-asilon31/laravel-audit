@@ -1,1 +1,90 @@
 https://demo.horilla.com/pms/view-key-result/
+
+
+==========================================================
+
+
+
+performance app :
+
+# objective : (
+column : title (string), 
+managers(select), 
+duration unit (days, months, years) (select), 
+duration (integer), 
+key result (select), 
+description (text), 
+assignees (select), 
+start date (date), 
+archive (bool), 
+self employee progress update(bool))
+
+
+# 360 feedback :
+column :
+-title (string),
+-employee (select),
+-manager (select),
+-subordinates(select),
+-colleague(select),
+-other employee(select),
+- period (select)
+- start date (date)
+- end date(date)
+- question template(select)
+- key result (select)
+- is cyclic feedback (bool)
+
+- meetings :
+
+
+
+# key results :
+column 
+-title
+- description,
+- progress type (integer)
+- target value(integer)
+- company (select)
+-archive (bool)
+
+
+# employee bonus point :
+# period
+# question template
+
+=====================================================
+
+
+1. Performance App:
+Tujuan (Objective) adalah fitur yang memungkinkan penetapan tujuan dan pengukuran pencapaian tujuan untuk setiap karyawan. Ini dapat digunakan untuk menilai kinerja berdasarkan kriteria yang sudah ditentukan.
+
+title (string): Judul objektif atau tujuan yang ditetapkan. Contohnya, "Peningkatan Penjualan Q1".
+
+managers (select): Pilihan untuk manajer yang bertanggung jawab atas karyawan yang bersangkutan.
+
+duration unit (select): Pilihan unit waktu untuk durasi tujuan. Pilihan bisa berupa:
+
+days (hari)
+
+months (bulan)
+
+years (tahun)
+
+duration (integer): Durasi waktu dalam unit yang dipilih (contohnya, 6 bulan).
+
+key result (select): Pilihan key results yang berhubungan dengan tujuan yang ingin dicapai (misalnya, "Meningkatkan angka penjualan sebesar 20%").
+
+description (text): Deskripsi singkat tentang tujuan atau objektif yang ingin dicapai.
+
+assignees (select): Pilihan siapa yang bertanggung jawab atau yang ditugaskan untuk mencapai tujuan ini (misalnya, karyawan atau tim).
+
+start date (date): Tanggal dimulainya objektif tersebut.
+
+archive (bool): Menandakan apakah objektif ini sudah selesai dan perlu diarsipkan.
+
+self employee progress update (bool): Apakah karyawan dapat memperbarui progres mereka sendiri pada objektif ini.
+
+
+
+

@@ -12,16 +12,15 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('files', function (Blueprint $table) {
-        $table->uuid('id')->primary();
+      $table->uuid('id')->primary();
 
-        $table->uuid('file_id')->nullable();
-        $table->string('file_type')->nullable();
-        $table->string('type')->nullable();
-        $table->text('bio')->nullable();
-        $table->timestamps();
-        $table->softDeletes();
+      $table->uuid('file_id')->nullable();
+      $table->string('file_type')->nullable();
+      $table->string('type')->nullable();
+      $table->text('bio')->nullable();
+      $table->timestamps();
+      $table->softDeletes();
     });
-
   }
 
   /**

@@ -18,7 +18,7 @@
         "livewire/volt": "^1.7",
         "maatwebsite/excel": "^3.1",
         "power-components/livewire-powergrid": "^6.3",
-        "robsontenorio/mary": "^2.2",
+        "robsontenorio/mary": "^2.4",
         "spatie/laravel-permission": "^6.20"
     },
     "require-dev": {

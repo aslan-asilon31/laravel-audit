@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Faker\Factory as Faker;
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 
 class UserSeeder extends Seeder
 {
@@ -29,7 +31,7 @@ class UserSeeder extends Seeder
                 'remember_token' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
-                'deleted_at' => null 
+                'deleted_at' => null
             ]);
         }
     }

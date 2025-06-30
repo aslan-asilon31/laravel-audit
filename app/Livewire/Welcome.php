@@ -2,68 +2,80 @@
 
 namespace App\Livewire;
 
-use Illuminate\Support\Collection;
 use Livewire\Component;
-use Mary\Traits\Toast;
+use App\Models\Tiket;
+use Carbon\Carbon;
 
 class Welcome extends Component
 {
-    use Toast;
+    public $months;
+    public $tiketTrendData;
+    public $tiketPriorityLabels;
+    public $tiketPriorityData;
+    public $tiketStatusLabels;
+    public $tiketStatusData;
+    public $totalTikets;
+    public $totalOpenTikets;
+    public $totalClosedTikets;
+    public $highPriorityTikets;
+    public $lowPriorityTikets;
+    public $averageResponseTime;
 
-    public string $search = '';
+    public string $title = "Dashboard";
+    public string $url = "/dashboard";
 
-    public bool $drawer = false;
-
-    public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
-
-    // Clear filters
-    public function clear(): void
+    public function mount()
     {
-        $this->reset();
-        $this->success('Filters cleared.', position: 'toast-bottom');
-    }
+        $this->months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-    // Delete action
-    public function delete($id): void
-    {
-        $this->warning("Will delete #$id", 'It is fake.', position: 'toast-bottom');
-    }
+        // Total ticket count
+        $this->totalTikets = Tiket::count();
+        $this->totalOpenTikets = Tiket::where('status', 'Open')->count();
+        $this->totalClosedTikets = Tiket::where('status', 'Closed')->count();
 
-    // Table headers
-    public function headers(): array
-    {
-        return [
-            ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'age', 'label' => 'Age', 'class' => 'w-20'],
-            ['key' => 'email', 'label' => 'E-mail', 'sortable' => false],
+        // High and Low Priority tikets
+        $this->highPriorityTikets = Tiket::where('ticket_priority', 'High')->count();
+        $this->lowPriorityTikets = Tiket::where('ticket_priority', 'Low')->count();
+
+        // Monthly ticket trends
+        $this->tiketTrendData = Tiket::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->pluck('count', 'month')
+            ->toArray();
+        $this->tiketTrendData = array_pad($this->tiketTrendData, 12, 0); // Padding data for all months
+
+        // Ticket Priority distribution
+        $this->tiketPriorityLabels = ['Low', 'Medium', 'High'];
+        $this->tiketPriorityData = [
+            Tiket::where('ticket_priority', 'Low')->count(),
+            Tiket::where('ticket_priority', 'Medium')->count(),
+            Tiket::where('ticket_priority', 'High')->count(),
         ];
+
+        // Ticket Status distribution
+        $this->tiketStatusLabels = ['Open', 'Closed', 'In Progress'];
+        $this->tiketStatusData = [
+            Tiket::where('status', 'Open')->count(),
+            Tiket::where('status', 'Closed')->count(),
+            Tiket::where('status', 'In Progress')->count(),
+        ];
+
+        // Calculate Average Response Time
+        $tikets = Tiket::whereNotNull('opened_at')->get();
+        $totalResponseTime = 0;
+        $tiketCount = $tikets->count();
+
+        foreach ($tikets as $tiket) {
+            $totalResponseTime += Carbon::parse($tiket->opened_at)->diffInMinutes($tiket->created_at);
+        }
+
+        // If there are tikets with response times, calculate the average, otherwise set it to 0
+        $this->averageResponseTime = $tiketCount > 0 ? $totalResponseTime / $tiketCount : 0;
     }
 
-    /**
-     * For demo purpose, this is a static collection.
-     *
-     * On real projects you do it with Eloquent collections.
-     * Please, refer to maryUI docs to see the eloquent examples.
-     */
-    public function users(): Collection
-    {
-        return collect([
-            ['id' => 1, 'name' => 'Mary', 'email' => 'mary@mary-ui.com', 'age' => 23],
-            ['id' => 2, 'name' => 'Giovanna', 'email' => 'giovanna@mary-ui.com', 'age' => 7],
-            ['id' => 3, 'name' => 'Marina', 'email' => 'marina@mary-ui.com', 'age' => 5],
-        ])
-            ->sortBy([[...array_values($this->sortBy)]])
-            ->when($this->search, function (Collection $collection) {
-                return $collection->filter(fn(array $item) => str($item['name'])->contains($this->search, true));
-            });
-    }
 
     public function render()
     {
-        return view('livewire.welcome', [
-            'users' => $this->users(),
-            'headers' => $this->headers()
-        ]);
+        return view('livewire.welcome');
     }
 }

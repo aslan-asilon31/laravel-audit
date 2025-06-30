@@ -1,5 +1,3 @@
-//Import Bootstrap File
-// import './bootstrap';
+import './bootstrap';
 
-// Import our custom CSS
-import '../sass/app.scss'
+import './../../vendor/power-components/livewire-powergrid/dist/powergrid'

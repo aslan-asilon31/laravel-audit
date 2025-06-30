@@ -34,8 +34,8 @@ class Welcome extends Component
         $this->totalClosedTikets = Tiket::where('status', 'Closed')->count();
 
         // High and Low Priority tikets
-        $this->highPriorityTikets = Tiket::where('ticket_priority', 'High')->count();
-        $this->lowPriorityTikets = Tiket::where('ticket_priority', 'Low')->count();
+        $this->highPriorityTikets = Tiket::where('tiket_prioritas', 'High')->count();
+        $this->lowPriorityTikets = Tiket::where('tiket_prioritas', 'Low')->count();
 
         // Monthly ticket trends
         $this->tiketTrendData = Tiket::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
@@ -47,9 +47,9 @@ class Welcome extends Component
         // Ticket Priority distribution
         $this->tiketPriorityLabels = ['Low', 'Medium', 'High'];
         $this->tiketPriorityData = [
-            Tiket::where('ticket_priority', 'Low')->count(),
-            Tiket::where('ticket_priority', 'Medium')->count(),
-            Tiket::where('ticket_priority', 'High')->count(),
+            Tiket::where('tiket_prioritas', 'Low')->count(),
+            Tiket::where('tiket_prioritas', 'Medium')->count(),
+            Tiket::where('tiket_prioritas', 'High')->count(),
         ];
 
         // Ticket Status distribution

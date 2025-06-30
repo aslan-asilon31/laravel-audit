@@ -43,7 +43,7 @@
         </div>
 
         <div class="mb-3">
-          <x-select label="ticket_priority" wire:model="masterForm.ticket_priority" :options="[
+          <x-select label="tiket_prioritas" wire:model="masterForm.tiket_prioritas" :options="[
               ['id' => 'low', 'name' => 'low'],
               ['id' => 'medium', 'name' => 'medium'],
               ['id' => 'high', 'name' => 'high'],

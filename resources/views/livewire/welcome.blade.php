@@ -1,166 +1,146 @@
 <div>
+  <x-list-menu :title="$title" :url="$url" shadow />
 
-  <div>
-    <div class="container mx-auto px-4 py-8">
 
-      <!-- Analytics Summary -->
-      <div class="mt-8">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">High Priority Tikets</h5>
-            <div class="text-3xl font-bold">{{ $highPriorityTikets }}</div>
+  <x-card>
+    <div class="space-y-4 p-4">
+
+      <div class="w-12/12">
+        <div class="flex flex-row">
+          <div class="bg-no-repeat  rounded-xl w-7/12 mr-2 p-6 shadow-lg "
+            style="background-image: url(); background-position: 90% center;">
+            <canvas id="salesLineChart" width="800" height="400"></canvas>
+
           </div>
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Low Priority Tikets</h5>
-            <div class="text-3xl font-bold">{{ $lowPriorityTikets }}</div>
+
+          <div class="bg-no-repeat   rounded-xl w-5/12 ml-2 p-6" style=" background-position: 100% 40%;">
+            <div class="">
+              <div>
+                <p class="text-2xl text-indigo-900 ">Selamat Datang
+                  <br><strong>{{ Auth::guard('pegawai')->user()->msPegawai->nama }}</strong>
+                </p>
+                <h6 class="">Anda Login Sebagai
+                  <b>{{ Auth::guard('pegawai')->user()->msPegawai->msJabatan->nama ?? 'tidak ada jabatan' }}</b>
+                </h6>
+              </div>
+              <div>
+                <img src="{{ asset('frontend/assets/img/flat-img1.png') }}" class="w-48" alt=""
+                  srcset="">
+              </div>
+            </div>
           </div>
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Average Response Time</h5>
-            <div class="text-3xl font-bold">{{ $averageResponseTime }} mins</div>
+        </div>
+        <div class="flex flex-row h-64 mt-6">
+          <div class="bg-white bg-blue-100 border border-blue-200 rounded-xl shadow-lg px-6 py-4 w-4/12">
+            <canvas id="barChart" width="400" height="200"></canvas>
+          </div>
+          <div class="bg-white bg-blue-100 border border-blue-200 rounded-xl shadow-lg mx-6 px-6 py-4 w-4/12">
+            <canvas id="pieChart"></canvas>
+          </div>
+          <div class="bg-white bg-blue-100 border border-blue-200 rounded-xl shadow-lg px-6 py-4 w-4/12">
+            <canvas id="lineChart"></canvas>
           </div>
         </div>
       </div>
 
-      <!-- Welcome Section -->
-      <div class="mb-8">
-        <div class="bg-white shadow-lg rounded-lg p-6">
-          <h5 class="text-center text-xl font-semibold mb-4">@yield('title')</h5>
-          <h5 class="text-lg">
-            @guest
-              {{ __('Welcome to') }} {{ config('app.name', 'CRM') }}! </br>
-              Please contact the admin to get your login credentials or click "Login" to go to your Dashboard.
-            @else
-              Hi {{ Auth::user()->name }}, Welcome back to {{ config('app.name', 'CRM') }}.
-              @endif
-            </h5>
-          </div>
-        </div>
-
-        <!-- Dashboard Stats Section -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <!-- Total Tikets Count -->
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Total Tikets Opened</h5>
-            <div class="text-3xl font-bold">{{ $totalTikets }}</div>
-          </div>
-
-          <!-- Open Tikets Count -->
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Total Open Tikets</h5>
-            <div class="text-3xl font-bold">{{ $totalOpenTikets }}</div>
-          </div>
-
-          <!-- Closed Tikets Count -->
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Total Closed Tikets</h5>
-            <div class="text-3xl font-bold">{{ $totalClosedTikets }}</div>
-          </div>
-        </div>
-
-        <!-- Tiket Analytics Charts -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          <!-- Tiket Count Trends (Monthly) -->
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Tiket Trends (Monthly)</h5>
-            <canvas id="tiketTrendChart" width="400" height="200"></canvas>
-          </div>
-
-          <!-- Tiket Priority Distribution -->
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Tiket Priority Distribution</h5>
-            <canvas id="tiketPriorityChart" width="400" height="200"></canvas>
-          </div>
-        </div>
-
-        <!-- Tiket Status Distribution -->
-        <div class="mt-8">
-          <div class="col-span-1 bg-white shadow-lg rounded-lg p-6">
-            <h5 class="text-xl font-semibold mb-4">Tiket Status Distribution</h5>
-            <canvas id="tiketStatusChart" width="400" height="200"></canvas>
-          </div>
-        </div>
 
 
-      </div>
     </div>
+  </x-card>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
-      // Monthly Tiket Trends Chart (Line Chart)
-      new Chart(document.getElementById('tiketTrendChart'), {
-        type: 'line',
-        data: {
-          labels: @json($months),
-          datasets: [{
-            label: 'Tikets Opened',
-            data: @json($tiketTrendData),
-            borderColor: 'rgba(128, 0, 128, 1)', // Purple border color
-            backgroundColor: 'rgba(128, 0, 128, 0.2)', // Light purple fill color
-            fill: false,
-          }]
-        },
-        options: {
-          responsive: true,
+  <!-- FILTER DRAWER -->
+  <x-drawer wire:model="drawer" title="Filters" right separator with-close-button class="lg:w-1/3">
+    <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
+      @keydown.enter="$wire.drawer = false" />
+
+    <x-slot:actions>
+      <x-button label="Reset" icon="o-x-mark" wire:click="clear" spinner />
+      <x-button label="Done" icon="o-check" class="btn-primary" @click="$wire.drawer = false" />
+    </x-slot:actions>
+  </x-drawer>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+  <script>
+    const ctx = document.getElementById('salesLineChart').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: @json($labelMonths),
+        datasets: @json($datasetProducts)
+      },
+      options: {
+        responsive: true,
+        plugins: {
           title: {
             display: true,
-            text: 'Tiket Trends (Monthly)'
+            text: 'Pendapatan Tiap Bulan di Tahun 2025'
           },
-          scales: {
-            y: {
-              beginAtZero: true
+          legend: {
+            position: 'top'
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Units Sold'
+            }
+          },
+          x: {
+            title: {
+              display: true,
+              text: 'Month'
             }
           }
         }
-      });
+      }
+    });
+  </script>
 
-      // Tiket Priority Distribution Chart (Pie Chart)
-      new Chart(document.getElementById('tiketPriorityChart'), {
-        type: 'pie',
-        data: {
-          labels: @json($tiketPriorityLabels),
-          datasets: [{
-            data: @json($tiketPriorityData),
-            backgroundColor: [
-              'rgba(128, 0, 128, 0.7)', // Purple for low priority
-              'rgba(153, 50, 204, 0.7)', // Medium purple for medium priority
-              'rgba(186, 85, 211, 0.7)' // Light purple for high priority
-            ]
-          }]
-        },
-        options: {
-          responsive: true,
-          title: {
-            display: true,
-            text: 'Tiket Priority Distribution'
-          }
-        }
-      });
+  <script>
+    // Bar Chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: {
+        labels: @json($barData['labels']),
+        datasets: [{
+          label: 'Bar Sample',
+          data: @json($barData['data']),
+          backgroundColor: 'rgba(75, 192, 192, 0.5)'
+        }]
+      }
+    });
 
-      // Tiket Status Distribution Chart (Bar Chart)
-      new Chart(document.getElementById('tiketStatusChart'), {
-        type: 'bar',
-        data: {
-          labels: @json($tiketStatusLabels),
-          datasets: [{
-            label: 'Tiket Status',
-            data: @json($tiketStatusData),
-            backgroundColor: 'rgba(138, 43, 226, 0.7)', // Purple color for bars
-          }]
-        },
-        options: {
-          responsive: true,
-          title: {
-            display: true,
-            text: 'Tiket Status Distribution'
-          },
-          scales: {
-            y: {
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    </script>
+    // Pie Chart
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: {
+        labels: @json($pieData['labels']),
+        datasets: [{
+          data: @json($pieData['data']),
+          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+        }]
+      }
+    });
 
-  </div>
+    // Line Chart
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: {
+        labels: @json($lineData['labels']),
+        datasets: [{
+          label: 'Line Sample',
+          data: @json($lineData['data']),
+          borderColor: '#4BC0C0',
+          fill: false
+        }]
+      }
+    });
+  </script>
+
+</div>

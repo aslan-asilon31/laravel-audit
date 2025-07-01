@@ -12,15 +12,20 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('tindak_lanjut', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('kriteria_id')->constrained('kriteria')->onDelete('cascade');
-        $table->enum('jenis', ['T1', 'T2']);
-        $table->date('tanggal_mulai')->nullable();
-        $table->date('tanggal_selesai')->nullable();
-        $table->enum('status', ['Open', 'Close', 'On Progress'])->default('Open');
-        $table->timestamps();
-    });
+      $table->uuid('id')->primary();
 
+      $table->uuid('permasalahan_id')->nullable();
+      $table->foreign('permasalahan_id')->references('id')->on('permasalahan')->onDelete('cascade')->onUpdate('cascade');
+
+      $table->string('nama', 255)->nullable()->index();
+      $table->date('tanggal_mulai')->nullable();
+      $table->date('tanggal_selesai')->nullable();
+      $table->string('dibuat_oleh', 100)->nullable()->index();
+      $table->string('diupdate_oleh', 100)->nullable()->index();
+      $table->timestamp('tgl_dibuat')->nullable();
+      $table->timestamp('tgl_diupdate')->nullable();
+      $table->string('status')->nullable();
+    });
   }
 
   /**
@@ -28,6 +33,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('tickets');
+    Schema::dropIfExists('tindak_lanjut');
   }
 };

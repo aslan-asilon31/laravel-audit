@@ -12,12 +12,12 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('keterangan', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('kriteria_id')->constrained('kriteria')->onDelete('cascade');
-        $table->text('isi_keterangan');
-        $table->timestamps();
+      $table->uuid('id')->primary();
+      $table->uuid('temuan_id')->nullable();
+      $table->foreign('temuan_id')->references('id')->on('temuan')->onDelete('cascade')->onUpdate('cascade');
+      $table->text('isi_keterangan');
+      $table->timestamps();
     });
-
   }
 
   /**

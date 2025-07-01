@@ -11,13 +11,19 @@ return new class extends Migration
    */
   public function up(): void
   {
-Schema::create('permasalahan', function (Blueprint $table) {
-    $table->id();
-    $table->foreignId('kriteria_id')->constrained('kriteria')->onDelete('cascade');
-    $table->text('deskripsi_permasalahan');
-    $table->timestamps();
-});
+    Schema::create('permasalahan', function (Blueprint $table) {
+      $table->uuid('id')->primary();
 
+      $table->uuid('dampak_id')->nullable();
+      $table->foreign('dampak_id')->references('id')->on('dampak')->onDelete('cascade')->onUpdate('cascade');
+
+      $table->string('nama');
+      $table->string('dibuat_oleh', 100)->nullable()->index();
+      $table->string('diupdate_oleh', 100)->nullable()->index();
+      $table->timestamp('tgl_dibuat')->nullable();
+      $table->timestamp('tgl_diupdate')->nullable();
+      $table->string('status')->nullable();
+    });
   }
 
   /**
@@ -25,6 +31,6 @@ Schema::create('permasalahan', function (Blueprint $table) {
    */
   public function down(): void
   {
-    Schema::dropIfExists('tickets');
+    Schema::dropIfExists('permasalahan');
   }
 };

@@ -12,14 +12,17 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('kriteria', function (Blueprint $table) {
-    $table->id();
-    $table->string('nama_kriteria');
-    $table->enum('status', ['Open', 'Close']);
-    $table->date('tanggal_mulai')->nullable();
-    $table->date('tanggal_selesai')->nullable();
-    $table->timestamps();
-});
-
+      $table->uuid('id')->primary();
+      $table->string('nama');
+      $table->string('prioritas');
+      $table->date('tgl_mulai')->nullable();
+      $table->date('tgl_selesai')->nullable();
+      $table->string('dibuat_oleh', 100)->nullable()->index();
+      $table->string('diupdate_oleh', 100)->nullable()->index();
+      $table->timestamp('tgl_dibuat')->nullable();
+      $table->timestamp('tgl_diupdate')->nullable();
+      $table->string('status')->nullable();
+    });
   }
 
   /**
@@ -27,6 +30,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('tickets');
+    Schema::dropIfExists('kriteria');
   }
 };

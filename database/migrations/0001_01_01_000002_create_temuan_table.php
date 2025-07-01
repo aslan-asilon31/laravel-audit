@@ -12,12 +12,18 @@ return new class extends Migration
   public function up(): void
   {
     Schema::create('temuan', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('kriteria_id')->constrained('kriteria')->onDelete('cascade');
-        $table->text('deskripsi_temuan');
-        $table->timestamps();
+      $table->uuid('id')->primary();
+      $table->uuid('kriteria_id')->nullable();
+      $table->foreign('kriteria_id')->references('id')->on('kriteria')->onDelete('cascade')->onUpdate('cascade');
+      $table->uuid('ms_file_id')->nullable();
+      $table->foreign('ms_file_id')->references('id')->on('ms_file')->onDelete('cascade')->onUpdate('cascade');
+      $table->string('nama');
+      $table->string('dibuat_oleh', 100)->nullable()->index();
+      $table->string('diupdate_oleh', 100)->nullable()->index();
+      $table->timestamp('tgl_dibuat')->nullable();
+      $table->timestamp('tgl_diupdate')->nullable();
+      $table->string('status')->nullable();
     });
-
   }
 
   /**
@@ -25,6 +31,6 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::dropIfExists('tickets');
+    Schema::dropIfExists('temuan');
   }
 };

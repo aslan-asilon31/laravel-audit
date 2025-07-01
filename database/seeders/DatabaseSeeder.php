@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\EmployeeAccount;
 use App\Models\Marketplace;
 use App\Models\MetaProperty;
+use App\Models\Permasalahan;
 use App\Models\Product;
 use App\Models\ProductCategoryFirst;
 use App\Models\ProductCategorySecond;
@@ -33,11 +34,23 @@ class DatabaseSeeder extends Seeder
   public function run(): void
   {
     $this->call([
-      UserSeeder::class,
-      RolePermissionSeeder::class,
-      TiketSeeder::class,
-      UserRoleSeeder::class,
-      ModelHasRolesSeeder::class,
+      // KriteriaSeeder::class,
+      TemuanSeeder::class,
+      DampakSeeder::class,
+      KeteranganSeeder::class,
+      PermasalahanSeeder::class,
+      TindakLanjutSeeder::class,
+
+      MsPegawaiSeeder::class,
+      MsPegawaiAkunSeeder::class,
+      MsJabatanSeeder::class,
+      MsStatusSeeder::class,
+      HakAksesGrupSeeder::class,
+
+      HakAksesJabatanSeeder::class,
+      HakAksesJabatanStatusSeeder::class,
+      HakAksesPegawaiCabangSeeder::class,
+
     ]);
   }
 }

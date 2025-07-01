@@ -35,7 +35,7 @@ class DatabaseSeeder extends Seeder
   {
     $this->call([
       // KriteriaSeeder::class,
-      TemuanSeeder::class,
+      // TemuanSeeder::class,
       DampakSeeder::class,
       KeteranganSeeder::class,
       PermasalahanSeeder::class,

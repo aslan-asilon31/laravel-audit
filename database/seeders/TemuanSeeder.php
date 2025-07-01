@@ -22,7 +22,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)],
-                'ms_file_id' => Str::uuid(),
+                'ms_file_id' => null,
                 'nama' => 'Temuan 1',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -33,7 +33,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)],
-                'ms_file_id' => Str::uuid(),
+                'ms_file_id' => null,
                 'nama' => 'Temuan 2',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -43,8 +43,8 @@ class TemuanSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid(),
-                'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)],
+                'ms_file_id' => null,
                 'nama' => 'Temuan 3',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -54,8 +54,8 @@ class TemuanSeeder extends Seeder
             ],
             [
                 'id' => Str::uuid(),
-                'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)],
+                'ms_file_id' => null,
                 'nama' => 'Temuan 4',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -66,7 +66,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 5',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -77,7 +77,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 6',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -88,7 +88,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 7',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -99,7 +99,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 8',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -110,7 +110,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 9',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
@@ -121,7 +121,7 @@ class TemuanSeeder extends Seeder
             [
                 'id' => Str::uuid(),
                 'kriteria_id' => $kriteriaIds[array_rand($kriteriaIds)], // Ambil id kriteria secara acak
-                'ms_file_id' => Str::uuid(), // Anda dapat menyesuaikan dengan file id yang ada
+                'ms_file_id' => null, // Anda dapat menyesuaikan dengan file id yang ada
                 'nama' => 'Temuan 10',
                 'dibuat_oleh' => 'Admin',
                 'diupdate_oleh' => 'Admin',
